@@ -1,3 +1,4 @@
+// Corne36
 #include QMK_KEYBOARD_H
 
 #include "swapper.h"
@@ -24,35 +25,35 @@ enum keycodes {
 #define TL_NAV TL_UPPR
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_split_3x5_2(
+  [BASE] = LAYOUT_split_3x5_3(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,      KC_P,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,      KC_SCLN,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,    KC_QUOTE,
-                       TL_NAV,           KC_LSFT,          /*|*/        KC_SPC,           TL_SYM
+                 KC_LCMD,     TL_NAV,      KC_LSFT,        /*|*/        KC_SPC,      TL_SYM,      KC_BSPC
   ),
-  [SYM] = LAYOUT_split_3x5_2(
+  [SYM] = LAYOUT_split_3x5_3(
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   KC_PERC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   OS_CTRL,   OS_CMD,    OS_ALT,    OS_SHFT,
     KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_TILD,   KC_RPRN,   KC_RCBR,   KC_RBRC,   KC_SLASH,
-                       _______,          _______,          /*|*/        _______,          _______
+                 _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
-  [NAV] = LAYOUT_split_3x5_2(
+  [NAV] = LAYOUT_split_3x5_3(
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ KC_LEFT,   KC_DOWN,   KC_UP,     KC_RIGHT,  XXXXXXX,
-    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   KC_DEL,    /*|*/ KC_TAB,    KC_BSPC,   KC_ENTER,  SW_NEXT,   XXXXXXX,
+    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   XXXXXXX,   /*|*/ KC_DEL,    KC_ENTER,  KC_TAB,    SW_NEXT,   XXXXXXX,
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   CW_TOGG,   /*|*/ XXXXXXX,   KC_PGDN,   KC_PGUP,   XXXXXXX,   XXXXXXX,
-                       _______,          _______,          /*|*/        _______,          _______
+                 _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
-  [NUM] = LAYOUT_split_3x5_2(
+  [NUM] = LAYOUT_split_3x5_3(
     KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     /*|*/ KC_F11,    KC_7,      KC_8,      KC_9,      KC_BSPC,
     OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   KC_COMMA,  /*|*/ KC_0,      KC_4,      KC_5,      KC_6,      KC_MINUS,
     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    /*|*/ KC_F12,    KC_1,      KC_2,      KC_3,      KC_DOT,
-                       _______,          _______,          /*|*/        _______,          _______
+                 _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
-  [MISC] = LAYOUT_split_3x5_2(
+  [MISC] = LAYOUT_split_3x5_3(
     C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT,
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   KC_ENTER,  XXXXXXX,   XXXXXXX,
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-                       _______,          _______,          /*|*/        _______,          _______
+    XXXXXXX,   XXXXXXX,   KC_ENTER,  XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   KC_ENTER,  XXXXXXX,   XXXXXXX,
+    QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+                 _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
 };
 
