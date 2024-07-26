@@ -1,6 +1,6 @@
 // Corne36
 #include QMK_KEYBOARD_H
-
+#include "quantum.h"
 #include "swapper.h"
 
 enum layers {
@@ -59,18 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM combo0[] = { KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_F, KC_J, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo4[] = { KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM combo5[] = { KC_V, KC_B, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, TO(MISC)),
-    COMBO(combo2, LCMD(KC_Z)),
-    COMBO(combo3, LCMD(KC_X)),
-    COMBO(combo4, LCMD(KC_C)),
-    COMBO(combo5, LCMD(KC_V)),
 };
 
 bool sw_desk_active = false;
@@ -109,4 +101,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
         };
     return true;
+}
+
+void set_hsv_all(uint8_t h, uint8_t s, uint8_t v) {
+    HSV hsv;
+    RGB rgb;
+
+    hsv.h = h; hsv.s = s; hsv.v = rgb_matrix_get_val();
+    rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+}
+
+bool rgb_matrix_indicators_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case BASE:
+            set_hsv_all(HSV_BLUE);
+            break;
+        case SYM:
+            set_hsv_all(HSV_ORANGE);
+            break;
+        case NAV:
+            set_hsv_all(HSV_MAGENTA);
+            break;
+        case NUM:
+            set_hsv_all(HSV_GREEN);
+            break;
+        case MISC:
+            set_hsv_all(HSV_RED);
+            break;
+    }
+#endif
+    return false;
 }

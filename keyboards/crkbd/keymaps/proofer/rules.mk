@@ -4,3 +4,7 @@ CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
 TRI_LAYER_ENABLE = yes
 SRC += swapper.c
+
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
+
