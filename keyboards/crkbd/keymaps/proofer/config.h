@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 
 #ifdef RGB_MATRIX_ENABLE
 // The following two redefinitions are commented out pending a 36-key rgb matrix

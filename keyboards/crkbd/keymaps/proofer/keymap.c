@@ -59,10 +59,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM combo0[] = { KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_F, KC_J, COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM combo3[] = { KC_X, KC_C, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, TO(MISC)),
+    COMBO(combo2, LCTL(KC_S)),
+    COMBO(combo3, LCTL(KC_J)),
 };
 
 bool sw_desk_active = false;
