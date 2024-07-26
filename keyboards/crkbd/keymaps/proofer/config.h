@@ -41,23 +41,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
-#define COMBO_COUNT 6
+#define COMBO_COUNT 2
 
 #ifdef RGB_MATRIX_ENABLE
-// The following two redefintions are commented out pending a 36-key rgb matrix
+// The following two redefinitions are commented out pending a 36-key rgb matrix
 // #define RGBLIGHT_LED_COUNT 48       // Total number of RGB LEDs for keys and underglow
 // #define RGB_MATRIX_SPLIT { 24, 24 } // Number of LEDs on each half
-// #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-// #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-// #   define RGB_MATRIX_SLEEP // turn off effects when suspended
-// #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limit number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-// #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limit in ms frequency of animation updating LEDs. 16 ms is equivalent to 60fps (increases keyboard responsiveness)
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limit max brightness (range 0..255). Higher may cause controller crash.
-#    define RGB_MATRIX_HUE_STEP 8
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_SPD_STEP 10
+#  define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limit max brightness (range 0..255). Higher may cause controller crash.
+#  define RGB_MATRIX_HUE_STEP 8
+#  define RGB_MATRIX_SAT_STEP 8
+#  define RGB_MATRIX_VAL_STEP 8
+#  define RGB_MATRIX_SPD_STEP 10
 #endif
 
 
