@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_USB_DETECT   // default for ARM
 #define MASTER_LEFT
-// #define SPLIT_LAYER_STATE_ENABLE
+// #define SPLIT_LAYER_STATE_ENABLE  // causes non-USB half to be in coma
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off,
 // assuming a screen refresh rate of 60 Htz or higher
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
-#define COMBO_COUNT 4
+#define COMBO_COUNT 5
 
 #ifdef RGB_MATRIX_ENABLE
 // The following two redefinitions are commented out pending a 36-key rgb matrix
