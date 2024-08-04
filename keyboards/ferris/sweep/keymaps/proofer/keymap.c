@@ -64,6 +64,7 @@ const uint16_t PROGMEM combo3[] = { KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM combo4[] = { KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM combo5[] = { KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM combo6[] = { KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM combo7[] = { KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
@@ -73,6 +74,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo4, LCMD(KC_C)),
     COMBO(combo5, LCMD(KC_V)),
     COMBO(combo6, LCTL(KC_S)),
+    COMBO(combo7, LCMD(KC_F)),
 };
 
 bool sw_desk_active = false;

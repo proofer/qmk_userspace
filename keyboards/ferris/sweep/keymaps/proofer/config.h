@@ -39,5 +39,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
-#define COMBO_COUNT 7
+#define COMBO_COUNT 8
 
