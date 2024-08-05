@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x5_2(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,      KC_P,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,      KC_SCLN,
-    KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,    KC_QUOTE,
+    KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,    KC_QUOT,
                        KC_LSFT,          TL_NAV,           /*|*/        TL_SYM,           KC_SPC
   ),
   [SYM] = LAYOUT_split_3x5_2(
@@ -57,24 +57,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const uint16_t PROGMEM combo0[] = { KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM combo1[] = { KC_F, KC_J, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo3[] = { KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo4[] = { KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM combo5[] = { KC_V, KC_B, COMBO_END};
-const uint16_t PROGMEM combo6[] = { KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM combo7[] = { KC_D, KC_F, COMBO_END};
+enum combos{
+    jk_ESC,
+    fj_MISC_LAYER,
+    hj_CTRL_J,
+    sd_CTRL_S,
+    xc_CTRL_X,
+    cv_CMD_C,
+    vb_CMD_V,
+    df_CMD_F,
+ //   zx_CTRL,
+ //   dotquot_CMD,
+    shftnav_CTRL,
+    symspc_CMD,
+};
 
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, KC_ESCAPE),
-    COMBO(combo1, TO(MISC)),
-    COMBO(combo2, LCTL(KC_J)),
-    COMBO(combo3, LCTL(KC_X)),
-    COMBO(combo4, LCMD(KC_C)),
-    COMBO(combo5, LCMD(KC_V)),
-    COMBO(combo6, LCTL(KC_S)),
-    COMBO(combo7, LCMD(KC_F)),
+const uint16_t PROGMEM jk_combo[] = { KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM fj_combo[] = { KC_F, KC_J, COMBO_END};
+const uint16_t PROGMEM hj_combo[] = { KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM xc_combo[] = { KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cv_combo[] = { KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM vb_combo[] = { KC_V, KC_B, COMBO_END};
+const uint16_t PROGMEM sd_combo[] = { KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM df_combo[] = { KC_D, KC_F, COMBO_END};
+// const uint16_t PROGMEM zx_combo[] = { KC_Z, KC_X, COMBO_END};
+// const uint16_t PROGMEM dotquot_combo[] = { KC_DOT, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM shftnav_combo[] = { KC_LSFT, TL_NAV, COMBO_END};
+const uint16_t PROGMEM symspc_combo[] = { TL_SYM, KC_SPC, COMBO_END};
+
+combo_t key_combos[] = {
+    [jk_ESC]        = COMBO(jk_combo, KC_ESCAPE),
+    [fj_MISC_LAYER] = COMBO(fj_combo, TO(MISC)),
+    [hj_CTRL_J]     = COMBO(hj_combo, LCTL(KC_J)),
+    [sd_CTRL_S]     = COMBO(sd_combo, LCTL(KC_S)),
+    [xc_CTRL_X]     = COMBO(xc_combo, LCTL(KC_X)),
+    [cv_CMD_C]      = COMBO(cv_combo, LCMD(KC_C)),
+    [vb_CMD_V]      = COMBO(vb_combo, LCMD(KC_V)),
+    [df_CMD_F]      = COMBO(df_combo, LCMD(KC_F)),
+//    [zx_CTRL]       = COMBO(zx_combo, KC_LCTL),
+//    [dotquot_CMD]   = COMBO(dotquot_combo, KC_LGUI),
+    [shftnav_CTRL]  = COMBO(shftnav_combo, KC_LCTL),
+    [symspc_CMD]    = COMBO(symspc_combo, KC_LGUI),
 };
 
 bool sw_desk_active = false;
