@@ -1,6 +1,7 @@
 // Corne36
 #include QMK_KEYBOARD_H
 #include "quantum.h"
+#include "swapper.h"
 
 enum layers {
     BASE, // Default
@@ -10,19 +11,25 @@ enum layers {
     MISC, // Mouse keys & Reset
 };
 
+enum keycodes {
+    SW_NEXT = SAFE_RANGE, // Switch to next desktop (cmd-tab)
+};
+
 // keycode macros
 #define OS_SHFT OSM(MOD_LSFT)
 #define OS_CTRL OSM(MOD_LCTL)
 #define OS_ALT OSM(MOD_LALT)
 #define OS_CMD OSM(MOD_LGUI)
 #define KC_MB1 KC_MS_BTN1
+#define TL_SYM TL_LOWR
+#define TL_NAV TL_UPPR
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x5_3(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,      KC_P,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,      KC_SCLN,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,    KC_QUOTE,
-                 MO(NUM),     KC_LSFT,     MO(NAV),         /*|*/        MO(SYM),      KC_SPC,      KC_BSPC
+                 KC_LCMD,     KC_LSFT,     TL_NAV,         /*|*/        TL_SYM,      KC_SPC,      KC_BSPC
   ),
   [SYM] = LAYOUT_split_3x5_3(
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   KC_PERC,
@@ -32,14 +39,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [NAV] = LAYOUT_split_3x5_3(
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ KC_LEFT,   KC_DOWN,   KC_UP,     KC_RIGHT,  XXXXXXX,
-    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   CW_TOGG,   /*|*/ KC_DEL,    KC_ENTER,  KC_TAB,    XXXXXXX,   XXXXXXX,
+    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   CW_TOGG,   /*|*/ KC_DEL,    KC_ENTER,  KC_TAB,    SW_NEXT,   XXXXXXX,
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   KC_PGDN,   KC_PGUP,   XXXXXXX,   XXXXXXX,
                  _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
   [NUM] = LAYOUT_split_3x5_3(
-    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     /*|*/ KC_F11,    KC_7,      KC_8,      KC_9,      KC_COMMA,
-    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   XXXXXXX,   /*|*/ KC_0,      KC_1,      KC_2,      KC_3,      KC_MINUS,
-    KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    /*|*/ KC_F12,    KC_4,      KC_5,      KC_6,      KC_DOT,
+    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     /*|*/ KC_F11,    KC_7,      KC_8,      KC_9,      XXXXXXX,
+    OS_SHFT,   OS_ALT,    OS_CMD,    OS_CTRL,   KC_COMMA,  /*|*/ KC_0,      KC_4,      KC_5,      KC_6,      KC_MINUS,
+    KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    /*|*/ KC_F12,    KC_1,      KC_2,      KC_3,      KC_DOT,
                  _______,     _______,     _______,        /*|*/        _______,     _______,     _______
   ),
   [MISC] = LAYOUT_split_3x5_3(
@@ -60,7 +67,6 @@ enum combos{
     vb_CMD_V,
     df_CMD_F,
     zx_CTRL,
-    dotquot_CMD,
 };
 
 const uint16_t PROGMEM jk_combo[] = { KC_J, KC_K, COMBO_END};
@@ -72,7 +78,6 @@ const uint16_t PROGMEM vb_combo[] = { KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM sd_combo[] = { KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM df_combo[] = { KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM zx_combo[] = { KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM dotquot_combo[] = { KC_DOT, KC_QUOT, COMBO_END};
 
 combo_t key_combos[] = {
     [jk_ESC]        = COMBO(jk_combo, KC_ESCAPE),
@@ -84,8 +89,45 @@ combo_t key_combos[] = {
     [vb_CMD_V]      = COMBO(vb_combo, LCMD(KC_V)),
     [df_CMD_F]      = COMBO(df_combo, LCMD(KC_F)),
     [zx_CTRL]       = COMBO(zx_combo, KC_LCTL),
-    [dotquot_CMD]   = COMBO(dotquot_combo, KC_LGUI),
 };
+
+bool sw_desk_active = false;
+bool sym_pressed = false;
+bool nav_pressed = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    update_swapper(
+        &sw_desk_active, KC_LCMD, KC_TAB, SW_NEXT,
+        keycode, record
+    );
+    switch ( keycode ) {
+        case TL_SYM:
+            if (record->event.pressed) {
+                sym_pressed = true;
+            } else {
+                sym_pressed = false;
+                layer_off(SYM);
+                if (nav_pressed) {
+                    return false;
+                }
+            }
+            return true;
+        case TL_NAV:
+            if (record->event.pressed) {
+                nav_pressed = true;
+            } else {
+                nav_pressed = false;
+                layer_off(NAV);
+                if (sym_pressed) {
+                    return false;
+                }
+            }
+            return true;
+        default:
+            return true;
+        };
+    return true;
+}
 
 void set_hsv_all(uint8_t h, uint8_t s, uint8_t v) {
     HSV hsv;

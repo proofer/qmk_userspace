@@ -1,6 +1,5 @@
-// Corne36
+// brec36
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 enum layers {
     BASE, // Default
@@ -86,35 +85,3 @@ combo_t key_combos[] = {
     [zx_CTRL]       = COMBO(zx_combo, KC_LCTL),
     [dotquot_CMD]   = COMBO(dotquot_combo, KC_LGUI),
 };
-
-void set_hsv_all(uint8_t h, uint8_t s, uint8_t v) {
-    HSV hsv;
-    RGB rgb;
-
-    hsv.h = h; hsv.s = s; hsv.v = rgb_matrix_get_val();
-    rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-}
-
-bool rgb_matrix_indicators_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    switch (get_highest_layer(layer_state | default_layer_state)) {
-        case BASE:
-            set_hsv_all(HSV_BLUE);
-            break;
-        case SYM:
-            set_hsv_all(HSV_ORANGE);
-            break;
-        case NAV:
-            set_hsv_all(HSV_MAGENTA);
-            break;
-        case NUM:
-            set_hsv_all(HSV_GREEN);
-            break;
-        case MISC:
-            set_hsv_all(HSV_RED);
-            break;
-    }
-#endif
-    return false;
-}
