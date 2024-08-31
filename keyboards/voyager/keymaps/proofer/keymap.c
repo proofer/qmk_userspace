@@ -12,39 +12,39 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,          
-    KC_NO,          KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_NO,          
-    KC_NO,          KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_QUOTE,       KC_NO,          
-                                                    LT(3,KC_BSPC),  LT(2,KC_ENTER),                                 LT(1,KC_TAB),   MT(MOD_LSFT, KC_SPACE)
+ KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+ KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_NO,
+ KC_NO, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_NO,
+ KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_QUOTE, KC_NO,
+                 LT(3, KC_BSPC),  LT(2, KC_ENTER),        LT(1, KC_TAB),   MT(MOD_LSFT, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, KC_GRAVE,       KC_LABK,        KC_RABK,        KC_UNDS,        KC_QUES,                                        KC_AMPR,        KC_LPRN,        KC_LCBR,        KC_LBRC,        KC_PERC,        KC_TRNSP, 
-    KC_TRNSP, KC_EXLM,        KC_MINUS,       KC_PLUS,        KC_EQUAL,       KC_HASH,                                        KC_PIPE,        OSM(MOD_LSFT),  OSM(MOD_LGUI),  OSM(MOD_LALT),  OSM(MOD_LCTL),  KC_TRNSP, 
-    KC_TRNSP, KC_CIRC,        KC_AT,          KC_ASTR,        KC_BSLS,        KC_DLR,                                         KC_TILD,        KC_RPRN,        KC_RCBR,        KC_RBRC,        KC_SLASH,       KC_TRNSP, 
-                                                    KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_GRAVE, KC_LABK, KC_RABK, KC_UNDS, KC_QUES, KC_AMPR, KC_LPRN, KC_LCBR, KC_LBRC, KC_PERC, KC_TRNSP,
+ KC_TRNSP, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL, KC_HASH, KC_PIPE,  OSM(MOD_LSFT),  OSM(MOD_LGUI),  OSM(MOD_LALT),  OSM(MOD_LCTL), KC_TRNSP,
+ KC_TRNSP, KC_CIRC, KC_AT, KC_ASTR, KC_BSLS, KC_DLR, KC_TILD, KC_RPRN, KC_RCBR, KC_RBRC, KC_SLASH, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP
   ),
   [2] = LAYOUT_voyager(
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  KC_DELETE,                                      KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, CW_TOGG,                                        KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-                                                    KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT), KC_DELETE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, CW_TOGG, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP
   ),
   [3] = LAYOUT_voyager(
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F11,         KC_7,           KC_8,           KC_9,           KC_BSPC,        KC_TRNSP, 
-    KC_TRNSP, OSM(MOD_LSFT),  OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  TO(0),                                          KC_0,           KC_4,           KC_5,           KC_6,           KC_MINUS,       KC_TRNSP, 
-    KC_TRNSP, KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,                                         KC_F12,         KC_1,           KC_2,           KC_3,           KC_DOT,         KC_TRNSP, 
-                                                    KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F11, KC_7, KC_8, KC_9, KC_BSPC, KC_TRNSP,
+ KC_TRNSP, OSM(MOD_LSFT),  OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI),  TO(0), KC_0, KC_4, KC_5, KC_6, KC_MINUS, KC_TRNSP,
+ KC_TRNSP, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F12, KC_1, KC_2, KC_3, KC_DOT, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP
   ),
   [4] = LAYOUT_voyager(
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, LCTL(KC_MS_BTN1),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, QK_BOOT,        KC_TRNSP, 
-    KC_TRNSP, KC_LEFT_CTRL,   KC_LEFT_ALT,    KC_LEFT_GUI,    KC_LEFT_SHIFT,  TO(0),                                          KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-    KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, 
-                                                    KC_TRNSP, KC_TRNSP,                                 KC_TRNSP, KC_TRNSP
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, LCTL( KC_MS_BTN1),LALT( KC_MS_BTN1),LGUI( KC_MS_BTN1),LSFT( KC_MS_BTN1), KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, QK_BOOT, KC_TRNSP,
+ KC_TRNSP, KC_LEFT_CTRL, KC_LEFT_ALT, KC_LEFT_GUI, KC_LEFT_SHIFT,  TO(0), KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP,
+ KC_TRNSP, KC_TRNSP, KC_TRNSP, KC_TRNSP
   ),
 };
 
@@ -58,10 +58,10 @@ const uint16_t PROGMEM combo5[] = { KC_V, KC_B, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, TO(4)),
-    COMBO(combo2, LGUI(KC_Z)),
-    COMBO(combo3, LGUI(KC_X)),
-    COMBO(combo4, LGUI(KC_C)),
-    COMBO(combo5, LGUI(KC_V)),
+    COMBO(combo2, LGUI( KC_Z)),
+    COMBO(combo3, LGUI( KC_X)),
+    COMBO(combo4, LGUI( KC_C)),
+    COMBO(combo5, LGUI( KC_V)),
 };
 
 

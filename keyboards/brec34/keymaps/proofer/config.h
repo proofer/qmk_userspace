@@ -15,31 +15,34 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define SPLIT_USB_DETECT   // default for ARM
-
 #pragma once
+
+#define SPLIT_USB_DETECT   // default for ARM
+// #define SPLIT_LAYER_STATE_ENABLE  // causes non-USB half to be in coma
+
 // Set the mouse settings to a comfortable speed/accuracy trade-off,
 // assuming a screen refresh rate of 60 Htz or higher
 // The default is 50. This makes the mouse ~3 times faster and more accurate
-#define MOUSEKEY_INTERVAL 16
+//moved to keyboard.json: #define MOUSEKEY_INTERVAL 16
 // The default is 20. Since we made the mouse about 3 times faster with the previous setting,
 // give it more time to accelerate to max speed to retain precise control over short distances.
-#define MOUSEKEY_TIME_TO_MAX 40
+#//moved to keyboard.json: define MOUSEKEY_TIME_TO_MAX 40
 // The default is 300. Let's try to make this as low as possible while keeping the cursor responsive
-#define MOUSEKEY_DELAY 100
+#//moved to keyboard.json: define MOUSEKEY_DELAY 100
 // It makes sense to use the same delay for the mouseweel
-#define MOUSEKEY_WHEEL_DELAY 100
+#//moved to keyboard.json: define MOUSEKEY_WHEEL_DELAY 100
 // The default is 100
 #define MOUSEKEY_WHEEL_INTERVAL 50
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
-// Pick good defaults for enabling tap-holds
 // #define TAPPING_TERM 300
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
+#define LTO_ENABLE			# Link-Time Optimization
 #define EXTRA_LONG_COMBOS
 #define COMBO_MUST_HOLD_MODS
+#define EE_HANDS
 
 
