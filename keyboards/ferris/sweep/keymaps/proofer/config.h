@@ -14,8 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
 #define SPLIT_USB_DETECT   // default for ARM
+#define MASTER_LEFT
 
 #pragma once
 // Set the mouse settings to a comfortable speed/accuracy trade-off,
@@ -40,5 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define QUICK_TAP_TERM 0
 
 #define COMBO_MUST_HOLD_MODS
-
+#define COMBO_ONLY_FROM_LAYER 0
 

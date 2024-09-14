@@ -1,4 +1,4 @@
-// brec36
+// brec36 -- Corne36 without rgb
 #include QMK_KEYBOARD_H
 
 enum layers {

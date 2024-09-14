@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,      KC_P,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,      KC_SCLN,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,    KC_QUOT,
-                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     LT(SYM, KC_ENTER),   SPC_BSPC
+                             KC_LSFT,     MO(NUM_NAV),     /*|*/     LT(SYM, KC_ENTER),   SPC_BSPC
   ),
   [SYM] = LAYOUT_split_3x5_2(
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   KC_PERC,
@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [NUM_NAV] = LAYOUT_split_3x5_2(
     XXXXXXX,   XXXXXXX,   KC_UP,     KC_TAB,    KC_PGUP,   /*|*/ CW_TOGG,   KC_7,      KC_8,      KC_9,      KC_COMMA,
-    XXXXXXX,   OS_ALT,    OS_CMD,    OS_CTRL,   KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,      KC_MINUS,
-    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ MO(FN),    KC_4,      KC_5,      KC_6,      KC_DOT,
+    XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,      KC_MINUS,
+    XXXXXXX,   OS_ALT,    OS_CMD,    OS_CTRL,   KC_PGDN,   /*|*/ MO(FN),    KC_4,      KC_5,      KC_6,      KC_DOT,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [FN] = LAYOUT_split_3x5_2(
@@ -57,72 +57,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combos{
+    jk_ESC,
     fj_MISC_LAYER,
-    ui_CTRL_J,      // next item in insert mode completion drop-down
-    we_CTRL_S,      // vim Save
-    er_CMD_F,       // browser Find
-    xc_CTRL_X,      // vim Close buffer
-    cv_CMD_C,       // Copy
-    vb_CMD_V,       // Paste
-
-    df_LCTL,           jk_RCTL,
-    sd_LCMD,           kl_RCMD,
-    fg_LOPT,           hj_ROPT,
-
-    sf_L_CMD_CTL,      jl_R_CMD_CTL,
-    sg_L_CMD_OPT,      hl_R_CMD_OPT,
-    dg_L_CTL_OPT,      hk_R_CTL_OPT,
-    sdf_L_CMD_CTL_OPT, jkl_R_CMD_CTL_OPT,
-
+    hj_CTRL_J,
+    sd_CTRL_S,
+    xc_CTRL_X,
+    cv_CMD_C,
+    vb_CMD_V,
+    df_CMD_F,
+    zx_CTRL,
+    dotquot_CMD,
 };
 
+const uint16_t PROGMEM jk_combo[] = { KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM fj_combo[] = { KC_F, KC_J, COMBO_END};
-const uint16_t PROGMEM ui_combo[] = { KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM we_combo[] = { KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM er_combo[] = { KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM hj_combo[] = { KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = { KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = { KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM vb_combo[] = { KC_V, KC_B, COMBO_END};
-
-const uint16_t PROGMEM df_combo[] = { KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = { KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM sd_combo[] = { KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM kl_combo[] = { KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM fg_combo[] = { KC_F, KC_G, COMBO_END};
-const uint16_t PROGMEM hj_combo[] = { KC_H, KC_J, COMBO_END};
-
-const uint16_t PROGMEM sf_combo[] = { KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM jl_combo[] = { KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM sg_combo[] = { KC_S, KC_G, COMBO_END};
-const uint16_t PROGMEM hl_combo[] = { KC_H, KC_L, COMBO_END};
-const uint16_t PROGMEM dg_combo[] = { KC_D, KC_G, COMBO_END};
-const uint16_t PROGMEM hk_combo[] = { KC_H, KC_K, COMBO_END};
-const uint16_t PROGMEM sdf_combo[] = { KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM jkl_combo[] = { KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM df_combo[] = { KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM zx_combo[] = { KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM dotquot_combo[] = { KC_DOT, KC_QUOT, COMBO_END};
 
 combo_t key_combos[] = {
+    [jk_ESC]        = COMBO(jk_combo, KC_ESCAPE),
     [fj_MISC_LAYER] = COMBO(fj_combo, TO(MISC)),
-    [ui_CTRL_J]     = COMBO(ui_combo, LCTL(KC_J)),
-    [we_CTRL_S]     = COMBO(we_combo, LCTL(KC_S)),
-    [er_CMD_F]      = COMBO(er_combo, LCMD(KC_F)),
+    [hj_CTRL_J]     = COMBO(hj_combo, LCTL(KC_J)),
+    [sd_CTRL_S]     = COMBO(sd_combo, LCTL(KC_S)),
     [xc_CTRL_X]     = COMBO(xc_combo, LCTL(KC_X)),
     [cv_CMD_C]      = COMBO(cv_combo, LCMD(KC_C)),
     [vb_CMD_V]      = COMBO(vb_combo, LCMD(KC_V)),
-
-    [df_LCTL]       = COMBO(df_combo, KC_LCTL),
-    [jk_RCTL]       = COMBO(jk_combo, KC_RCTL),
-    [sd_LCMD]       = COMBO(sd_combo, KC_LCMD),
-    [kl_RCMD]       = COMBO(kl_combo, KC_RCMD),
-    [fg_LOPT]       = COMBO(fg_combo, KC_LOPT),
-    [hj_ROPT]       = COMBO(hj_combo, KC_ROPT),
-
-    [sf_L_CMD_CTL]  = COMBO(sf_combo, LCMD(KC_LCTL)),
-    [jl_R_CMD_CTL]  = COMBO(jl_combo, RCMD(KC_RCTL)),
-    [sg_L_CMD_OPT]  = COMBO(sg_combo, LCMD(KC_LOPT)),
-    [hl_R_CMD_OPT]  = COMBO(hl_combo, RCMD(KC_ROPT)),
-    [dg_L_CTL_OPT]  = COMBO(dg_combo, LCTL(KC_LOPT)),
-    [hk_R_CTL_OPT]  = COMBO(hk_combo, RCTL(KC_ROPT)),
-    [sdf_L_CMD_CTL_OPT] = COMBO(sdf_combo, LCMD(LCTL(KC_LOPT))),
-    [jkl_R_CMD_CTL_OPT] = COMBO(jkl_combo, RCMD(RCTL(KC_ROPT))),
+    [df_CMD_F]      = COMBO(df_combo, LCMD(KC_F)),
+    [zx_CTRL]       = COMBO(zx_combo, KC_LCTL),
+    [dotquot_CMD]   = COMBO(dotquot_combo, KC_LGUI),
 };
 
