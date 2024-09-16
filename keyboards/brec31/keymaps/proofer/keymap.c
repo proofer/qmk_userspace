@@ -1,4 +1,4 @@
-// brec34 & Ferris Sweep; right pinky column unused
+// brec31
 #include QMK_KEYBOARD_H
 #include "print.h"
 
@@ -11,10 +11,6 @@ enum layers {
 };
 
 // keycode macros
-#define OS_SHFT OSM(MOD_LSFT)
-#define OS_CTRL OSM(MOD_LCTL)
-#define OS_OPT OSM(MOD_LALT)
-#define OS_CMD OSM(MOD_LGUI)
 #define KC_MB1 KC_MS_BTN1
 
 // Shift-Space -> Backspace
@@ -61,7 +57,7 @@ enum combos{
     commadot_QUOT,  // KC_QUOT
     mcomma_SCLN,    // KC_SCLN
     fj_MISC_LAYER,
-    ui_CTRL_J,      // next item in insert mode completion drop-down
+    ui_CTRL_J,      // next item in vim/Copilot completion drop-down
     we_CTRL_S,      // vim Save
     er_CMD_F,       // browser Find
     xc_CTRL_X,      // vim Close buffer
