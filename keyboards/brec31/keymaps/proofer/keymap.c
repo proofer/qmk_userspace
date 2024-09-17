@@ -4,13 +4,12 @@
 
 enum layers {
     BASE,    // Default
-    SYM_P,   // Symbols & KC_P
+    SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
     FN,      // Fn keys 1..12
     MISC,    // Mouse keys & Reset
 };
 
-// keycode macros
 #define KC_MB1 KC_MS_BTN1
 
 // Shift-Space -> Backspace
@@ -25,12 +24,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,
-                       KC_LSFT,   LT(NUM_NAV, KC_ESC),  /*|*/     LT(SYM_P, KC_ENTER),   SPC_BSPC
+                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     LT(SYM, KC_ENTER),   SPC_BSPC
   ),
-  [SYM_P] = LAYOUT_left_3x5_2_right_3x4_2(
+  [SYM] = LAYOUT_left_3x5_2_right_3x4_2(
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
-    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  KC_P,
+    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
@@ -40,13 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [FN] = LAYOUT_left_3x5_2_right_3x4_2(
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+    XXXXXXX,   C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
     XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F4,     KC_F5,     KC_F6,
     XXXXXXX,   KC_F7,     KC_F8,     KC_F9,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F10,    KC_F11,    KC_F12,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [MISC] = LAYOUT_left_3x5_2_right_3x4_2(
-    C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT,
+    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT,
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
     QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
@@ -54,6 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combos{
+    io_P,           // KC_P
     commadot_QUOT,  // KC_QUOT
     mcomma_SCLN,    // KC_SCLN
     fj_MISC_LAYER,
@@ -75,6 +75,7 @@ enum combos{
 
 };
 
+const uint16_t PROGMEM io_combo[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM commadot_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM mcomma_combo[] = {KC_M, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM fj_combo[] = {KC_F, KC_J, COMBO_END};
@@ -102,6 +103,7 @@ const uint16_t PROGMEM sdf_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM jkl_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
+    [io_P]          = COMBO(io_combo, KC_P),
     [commadot_QUOT] = COMBO(commadot_combo, KC_QUOT),
     [mcomma_SCLN]   = COMBO(mcomma_combo, KC_SCLN),
     [fj_MISC_LAYER] = COMBO(fj_combo, TO(MISC)),
@@ -130,9 +132,9 @@ combo_t key_combos[] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // if FN ("adjust") on, leave it on until *both* SYM_P ("lower") and NUM_NAV ("upper") are off
+    // if FN ("adjust") on, leave it on until *both* SYM ("lower") and NUM_NAV ("upper") are off
     if (state & ((layer_state_t)1 << FN)) {
-        if (state & (((layer_state_t)1 << SYM_P) | (((layer_state_t)1 << NUM_NAV)))) return state;
+        if (state & (((layer_state_t)1 << SYM) | (((layer_state_t)1 << NUM_NAV)))) return state;
     }
-    return update_tri_layer_state(state, SYM_P, NUM_NAV, FN);
+    return update_tri_layer_state(state, SYM, NUM_NAV, FN);
 }
