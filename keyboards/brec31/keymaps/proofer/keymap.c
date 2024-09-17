@@ -7,7 +7,7 @@ enum layers {
     SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
     FN_MS,   // Fn keys 1..12 & modded mouse buttons
-    MISC,    // Mouse keys & Reset
+    RESET,    // Reset
 };
 
 #define KC_MB1 KC_MS_BTN1
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,   KC_F7,     KC_F8,     KC_F9,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F10,    KC_F11,    KC_F12,
                        _______,          _______,          /*|*/        _______,          _______
   ),
-  [MISC] = LAYOUT_left_3x5_2_right_3x4_2(
+  [RESET] = LAYOUT_left_3x5_2_right_3x4_2(
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT,
     XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
     QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
@@ -56,7 +56,7 @@ enum combos{
     io_P,           // KC_P
     commadot_QUOT,  // KC_QUOT
     mcomma_SCLN,    // KC_SCLN
-    fj_MISC_LAYER,
+    fj_RESET_LAYER,
     ui_CTRL_J,      // next item in vim/Copilot completion drop-down
     we_CTRL_S,      // vim Save
     er_CMD_F,       // browser Find
@@ -106,7 +106,7 @@ combo_t key_combos[] = {
     [io_P]          = COMBO(io_combo, KC_P),
     [commadot_QUOT] = COMBO(commadot_combo, KC_QUOT),
     [mcomma_SCLN]   = COMBO(mcomma_combo, KC_SCLN),
-    [fj_MISC_LAYER] = COMBO(fj_combo, TO(MISC)),
+    [fj_RESET_LAYER] = COMBO(fj_combo, TO(RESET)),
     [ui_CTRL_J]     = COMBO(ui_combo, LCTL(KC_J)),
     [we_CTRL_S]     = COMBO(we_combo, LCTL(KC_S)),
     [er_CMD_F]      = COMBO(er_combo, LCMD(KC_F)),
