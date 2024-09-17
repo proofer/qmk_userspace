@@ -6,7 +6,7 @@ enum layers {
     BASE,    // Default
     SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
-    FN,      // Fn keys 1..12
+    FN_MS,   // Fn keys 1..12 & modded mouse buttons
     MISC,    // Mouse keys & Reset
 };
 
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,
                        _______,          _______,          /*|*/        _______,          _______
   ),
-  [FN] = LAYOUT_left_3x5_2_right_3x4_2(
+  [FN_MS] = LAYOUT_left_3x5_2_right_3x4_2(
     XXXXXXX,   C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
     XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F4,     KC_F5,     KC_F6,
     XXXXXXX,   KC_F7,     KC_F8,     KC_F9,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F10,    KC_F11,    KC_F12,
@@ -132,9 +132,9 @@ combo_t key_combos[] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // if FN ("adjust") on, leave it on until *both* SYM ("lower") and NUM_NAV ("upper") are off
-    if (state & ((layer_state_t)1 << FN)) {
+    // if FN_MS ("adjust") on, leave it on until *both* SYM ("lower") and NUM_NAV ("upper") are off
+    if (state & ((layer_state_t)1 << FN_MS)) {
         if (state & (((layer_state_t)1 << SYM) | (((layer_state_t)1 << NUM_NAV)))) return state;
     }
-    return update_tri_layer_state(state, SYM, NUM_NAV, FN);
+    return update_tri_layer_state(state, SYM, NUM_NAV, FN_MS);
 }
