@@ -1,6 +1,6 @@
 // brec31
 #include QMK_KEYBOARD_H
-#include "print.h"
+#include "._email.h" // defines EMAIL_ADDR
 
 enum layers {
     BASE,    // Default
@@ -8,6 +8,10 @@ enum layers {
     NUM_NAV, // Numbers & Navigation
     FN_MS,   // Fn keys 1..12 & modded mouse buttons
     RESET,    // Reset
+};
+
+enum custom_keycodes {
+    EMAIL = SAFE_RANGE,
 };
 
 #define KC_MB1 KC_MS_BTN1
@@ -26,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,
                        KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     LT(SYM, KC_ENTER),   SPC_BSPC
   ),
-  [SYM] = LAYOUT_left_3x5_2_right_3x4_2(
+  [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could be shifted per QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
     KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  XXXXXXX,
@@ -34,13 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
     DB_TOGG,   XXXXXXX,   KC_UP,     CW_TOGG,   KC_PGUP,   /*|*/ KC_COMMA,  KC_7,      KC_8,      KC_9,
-    XXXXXXX,   KC_HOME,   KC_END,    KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,
+    EMAIL,     KC_HOME,   KC_END,    KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,
     XXXXXXX,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [FN_MS] = LAYOUT_left_3x5_2_right_3x4_2(
     XXXXXXX,   C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-    XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F4,     KC_F5,     KC_F6,
+    XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     KC_MB1,    /*|*/ XXXXXXX,   KC_F4,     KC_F5,     KC_F6,
     XXXXXXX,   KC_F7,     KC_F8,     KC_F9,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F10,    KC_F11,    KC_F12,
                        _______,          _______,          /*|*/        _______,          _______
   ),
@@ -54,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum combos{
     io_P,           // KC_P
-    commadot_QUOT,  // KC_QUOT
-    mcomma_SCLN,    // KC_SCLN
+    commadot_QUOT,  // KC_QUOT; shifted: `"`
+    mcomma_SCLN,    // KC_SCLN; shifted: `:`
     fj_RESET_LAYER,
     ui_CTRL_J,      // next item in vim/Copilot completion drop-down
     we_CTRL_S,      // vim Save
@@ -137,4 +141,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         if (state & (((layer_state_t)1 << SYM) | (((layer_state_t)1 << NUM_NAV)))) return state;
     }
     return update_tri_layer_state(state, SYM, NUM_NAV, FN_MS);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case EMAIL:
+        if (record->event.pressed) {
+            SEND_STRING(EMAIL_ADDR);
+        }
+        break;
+    }
+    return true;
 }
