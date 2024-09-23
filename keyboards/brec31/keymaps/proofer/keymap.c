@@ -6,8 +6,8 @@ enum layers {
     BASE,    // Default
     SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
-    FN_MS,   // Fn keys 1..12 & modded mouse buttons
-    RESET,    // Reset
+    FN_MS,   // Fn keys 1..12 & mouse button; TODO: add mouse movement
+    RESET,   // for flashing new firmware
 };
 
 enum custom_keycodes {
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could be shifted per QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
-    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  XXXXXXX,
+    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  KC_TAB,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
@@ -68,6 +68,7 @@ enum combos{
     cv_CMD_C,       // Copy
     vb_CMD_V,       // Paste
 
+    // all combinations of modifiers, using home row keys -- except Shift, which is a thumb key
     df_LCTL,           jk_RCTL,
     sd_LCMD,           kl_RCMD,
     fg_LOPT,           hj_ROPT,
