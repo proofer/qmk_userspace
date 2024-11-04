@@ -29,12 +29,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,
-                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     LT(SYM, KC_ENTER),   SPC_BSPC
+                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     MO(SYM),   SPC_BSPC
   ),
   [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
-    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  XXXXXXX,
+    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  KC_ENTER,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
