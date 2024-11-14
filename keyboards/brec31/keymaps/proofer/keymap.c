@@ -24,12 +24,37 @@ const key_override_t *key_overrides[] = {
 };
 #define SPC_BSPC KC_SPACE
 
+enum tap_dance_keys {
+    ENTER_SYM,
+};
+
+// tap dance states
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,  // ignore
+    TD_SINGLE_HOLD, // like MO(SYM)
+    TD_DOUBLE_TAP   // like tap_code(KC_ENTER)
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Function associated with all tap dances
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// Functions associated with individual tap dances
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_left_3x5_2_right_3x4_2(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,
-                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     MO(SYM),   SPC_BSPC
+                       KC_LSFT,   LT(NUM_NAV, KC_ESC),     /*|*/     TD(ENTER_SYM),  SPC_BSPC
   ),
   [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
@@ -137,13 +162,13 @@ combo_t key_combos[] = {
     [jkl_R_CMD_CTL_OPT] = COMBO(jkl_combo, RCMD(RCTL(KC_ROPT))),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // if FN_MS ("adjust") on, leave it on until *both* SYM ("lower") and NUM_NAV ("upper") are off
-    if (state & ((layer_state_t)1 << FN_MS)) {
-        if (state & (((layer_state_t)1 << SYM) | (((layer_state_t)1 << NUM_NAV)))) return state;
-    }
-    return update_tri_layer_state(state, SYM, NUM_NAV, FN_MS);
-}
+/*layer_state_t layer_state_set_user(layer_state_t state) {*/
+/*    // if FN_MS ("adjust") on, leave it on until *both* SYM ("lower") and NUM_NAV ("upper") are off*/
+/*    if (state & ((layer_state_t)1 << FN_MS)) {*/
+/*        if (state & (((layer_state_t)1 << SYM) | (((layer_state_t)1 << NUM_NAV)))) return state;*/
+/*    }*/
+/*    return update_tri_layer_state(state, SYM, NUM_NAV, FN_MS);*/
+/*}*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -155,3 +180,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+// Determine the current tap dance state
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (!state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) return TD_DOUBLE_TAP;
+    else return TD_UNKNOWN;
+}
+
+// Initialize tap structure associated with example tap dance key
+static td_tap_t ql_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+// Functions that control what our tap dance key does
+void ql_finished(tap_dance_state_t *state, void *user_data) {
+    ql_tap_state.state = cur_dance(state);
+    switch (ql_tap_state.state) {
+        case TD_SINGLE_TAP:
+            // No single tap action
+            break;
+        case TD_SINGLE_HOLD:
+            layer_on(SYM);
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code(KC_ENTER);
+            break;
+        default:
+            break;
+    }
+}
+
+void ql_reset(tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    if (ql_tap_state.state == TD_SINGLE_HOLD) {
+        layer_off(SYM);
+    }
+    ql_tap_state.state = TD_NONE;
+}
+
+// Associate our tap dance key with its functionality
+tap_dance_action_t tap_dance_actions[] = {
+    [ENTER_SYM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
+};
+
+// Set a long-ish tapping term for tap-dance keys
+/*uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {*/
+/*    switch (keycode) {*/
+/*        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:*/
+/*            return 275;*/
+/*        default:*/
+/*            return TAPPING_TERM;*/
+/*    }*/
+/*}*/
+
