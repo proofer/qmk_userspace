@@ -36,7 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The default is 40
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
-// #define TAPPING_TERM 300
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
 // #define PERMISSIVE_HOLD
 // #define QUICK_TAP_TERM 0
 
