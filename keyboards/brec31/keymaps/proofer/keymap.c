@@ -6,7 +6,7 @@ enum layers {
     BASE,    // Default
     SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
-    FN_MS,   // Fn keys 1..12 & mouse button; TODO: add mouse movement
+    FN_MS,   // Fn keys 1..12;  access via SYM;  TODO: mouse buttons and movement
     RESET,   // for flashing new firmware
 };
 
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
     KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
-    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  KC_ENTER,
+    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  MO(FN_MS),
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [FN_MS] = LAYOUT_left_3x5_2_right_3x4_2(
-    XXXXXXX,   C(KC_MB1), A(KC_MB1), G(KC_MB1), S(KC_MB1), /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-    XXXXXXX,   KC_F1,     KC_F2,     KC_F3,     KC_MB1,    /*|*/ XXXXXXX,   KC_F4,     KC_F5,     KC_F6,
-    XXXXXXX,   KC_F7,     KC_F8,     KC_F9,     XXXXXXX,   /*|*/ XXXXXXX,   KC_F10,    KC_F11,    KC_F12,
+    XXXXXXX,   KC_F9,     KC_F8 ,    KC_F7,     KC_F12,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+    XXXXXXX,   KC_F3,     KC_F2,     KC_F1,     KC_F10,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+    XXXXXXX,   KC_F6,     KC_F5,     KC_F4,     KC_F11,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [RESET] = LAYOUT_left_3x5_2_right_3x4_2(
