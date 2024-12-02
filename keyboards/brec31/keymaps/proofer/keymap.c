@@ -25,29 +25,9 @@ const key_override_t *key_overrides[] = {
 #define SPC_BSPC KC_SPACE
 
 enum tap_dance_keys {
-    ENTER_SYM,
+    // rationale: was accidentally tapping LT(SYM, KC_ENTER) left inside thumb key
+    ENTER_SYM,      // tap: NOP; double-tap: KC_ENTER; hold: same as MO(SYM)
 };
-
-// tap dance states
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,  // ignore
-    TD_SINGLE_HOLD, // like MO(SYM)
-    TD_DOUBLE_TAP   // like tap_code(KC_ENTER)
-} td_state_t;
-
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-// Function associated with all tap dances
-td_state_t cur_dance(tap_dance_state_t *state);
-
-// Functions associated with individual tap dances
-void ql_finished(tap_dance_state_t *state, void *user_data);
-void ql_reset(tap_dance_state_t *state, void *user_data);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_left_3x5_2_right_3x4_2(
@@ -181,6 +161,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// Following is based on https://docs.qmk.fm/features/tap_dance#example-4
+
+// tap dance states
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,  // ignore
+    TD_SINGLE_HOLD, // like MO(SYM)
+    TD_DOUBLE_TAP   // like tap_code(KC_ENTER)
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Function associated with all tap dances
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// Functions associated with individual tap dances
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
+
 // Determine the current tap dance state
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
@@ -201,7 +204,7 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
         case TD_SINGLE_TAP:
-            // No single tap action
+            // No single-tap action
             break;
         case TD_SINGLE_HOLD:
             layer_on(SYM);
