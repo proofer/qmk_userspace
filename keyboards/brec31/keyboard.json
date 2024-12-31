@@ -6,7 +6,7 @@
         "vid": "0x5342",
         "pid": "0x4330",
         "device_version": "07.0.0"
-    }
+    },
     "development_board": "elite_c",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -45,7 +45,7 @@
         "delay": 100,
         "interval": 16,
         "time_to_max": 40,
-        "wheel_delay": 100,
+        "wheel_delay": 100
         },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_left_3x5_2_right_3x4_2"

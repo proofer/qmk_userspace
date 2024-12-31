@@ -6,12 +6,13 @@ enum layers {
     BASE,    // Default
     SYM,     // Symbols & KC_P
     NUM_NAV, // Numbers & Navigation
-    FN_MS,   // Fn keys 1..12;  access via SYM;  TODO: mouse buttons and movement
+    FN_MS,   // Fn keys 1..12; access via SYM;  TODO: mouse buttons and movement
     RESET,   // for flashing new firmware
 };
 
 enum custom_keycodes {
     EMAIL = SAFE_RANGE,
+    PHONE,
 };
 
 #define KC_MB1 KC_MS_BTN1
@@ -25,7 +26,7 @@ const key_override_t *key_overrides[] = {
 #define SPC_BSPC KC_SPACE
 
 enum tap_dance_keys {
-    // rationale: was accidentally tapping LT(SYM, KC_ENTER) left inside thumb key
+    // rationale: was accidentally tapping the LT(SYM, KC_ENTER) right inside thumb key
     ENTER_SYM,      // tap: NOP; double-tap: KC_ENTER; hold: same as MO(SYM)
 };
 
@@ -43,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
-    XXXXXXX,   KC_HOME,   KC_UP,     CW_TOGG,   KC_PGUP,   /*|*/ KC_MINUS,  KC_7,      KC_8,      KC_9,
+    PHONE,     KC_HOME,   KC_UP,     CW_TOGG,   KC_PGUP,   /*|*/ KC_MINUS,  KC_7,      KC_8,      KC_9,
     EMAIL,     KC_END,    S(KC_TAB), KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,
     KC_RSFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,
                        _______,          _______,          /*|*/        _______,          _______
@@ -152,24 +153,31 @@ combo_t key_combos[] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case EMAIL:
-        if (record->event.pressed) {
-            SEND_STRING(EMAIL_ADDR);
-        }
-        break;
+        case EMAIL:
+            if (record->event.pressed) {
+                SEND_STRING(EMAIL_ADDR);
+            }
+            break;
+        case PHONE:
+            if (record->event.pressed) {
+                SEND_STRING(PHONE_NBR);
+            }
+            break;
     }
     return true;
 }
 
 // Following is based on https://docs.qmk.fm/features/tap_dance#example-4
 
+/*********** Tap Dance declarations -- inline ".h file" ***********/
+
 // tap dance states
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
     TD_SINGLE_TAP,  // ignore
-    TD_SINGLE_HOLD, // like MO(SYM)
     TD_DOUBLE_TAP   // like tap_code(KC_ENTER)
+    TD_SINGLE_HOLD, // like MO(SYM)
 } td_state_t;
 
 typedef struct {
@@ -184,6 +192,8 @@ td_state_t cur_dance(tap_dance_state_t *state);
 void ql_finished(tap_dance_state_t *state, void *user_data);
 void ql_reset(tap_dance_state_t *state, void *user_data);
 
+/*********** Tap Dance definitions ***********/
+
 // Determine the current tap dance state
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
@@ -193,7 +203,7 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     else return TD_UNKNOWN;
 }
 
-// Initialize tap structure associated with example tap dance key
+// Initialize tap structure associated with tap dance key
 static td_tap_t ql_tap_state = {
     .is_press_action = true,
     .state = TD_NONE
@@ -206,11 +216,11 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_TAP:
             // No single-tap action
             break;
-        case TD_SINGLE_HOLD:
-            layer_on(SYM);
-            break;
         case TD_DOUBLE_TAP:
             tap_code(KC_ENTER);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_on(SYM);
             break;
         default:
             break;
