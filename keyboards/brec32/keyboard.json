@@ -1,12 +1,12 @@
 {
     "manufacturer": "proofer",
-    "keyboard_name": "brec34",
+    "keyboard_name": "brec32",
     "maintainer": "proofer",
     "usb": {
         "vid": "0x5342",
-        "pid": "0x4329",
+        "pid": "0x4332",
         "device_version": "07.0.0"
-    }
+    },
     "development_board": "elite_c",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -45,8 +45,8 @@
         "delay": 100,
         "interval": 16,
         "time_to_max": 40,
-        "wheel_delay": 100,
-        },
+        "wheel_delay": 100
+    },
     "community_layouts": ["split_3x5_2"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x5_2"

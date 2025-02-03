@@ -1,4 +1,4 @@
-// brec31 -- 34 keys split with no right pinky column
+// brec32 -- PCBs have 34 key positions but right pinky column top and bottomm key switches removed
 #include QMK_KEYBOARD_H
 #include ".&email.h" // defines EMAIL_ADDR and PHONE_NBR
 
@@ -27,38 +27,38 @@ const key_override_t *key_overrides[] = {
 
 enum tap_dance_keys {
     // rationale: was accidentally tapping the LT(SYM, KC_ENTER) thumb key
-    ENTER_SYM,      // tap: NOP; double-tap: KC_ENTER; hold: same as MO(SYM)
+    ENTER_SYM,      // tap: same as LSFT(KC_ENTER); double-tap: KC_ENTER; hold: same as MO(SYM)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_left_3x5_2_right_3x4_2(
-    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,
-    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,
-    KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,
-                       KC_LSFT,   TD(ENTER_SYM),           /*|*/     LT(NUM_NAV, KC_ESC),  SPC_BSPC
+  [BASE] = LAYOUT_split_3x5_2(
+    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,    XXXXXXX,
+    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,    KC_ESC,
+    KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,  XXXXXXX,
+                       KC_LSFT,   TD(ENTER_SYM),           /*|*/     MO(NUM_NAV),   SPC_BSPC
   ),
-  [SYM] = LAYOUT_left_3x5_2_right_3x4_2( /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
-    KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,
-    KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,
-    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  MO(FN_MS),
+  [SYM] =  LAYOUT_split_3x5_2(  /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
+    KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   XXXXXXX,
+    KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,   XXXXXXX,
+    KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  MO(FN_MS), XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
-  [NUM_NAV] = LAYOUT_left_3x5_2_right_3x4_2(
-    PHONE,     KC_HOME,   KC_UP,     CW_TOGG,   KC_PGUP,   /*|*/ KC_MINUS,  KC_7,      KC_8,      KC_9,
-    EMAIL,     KC_END,    S(KC_TAB), KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,
-    KC_RSFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,
+  [NUM_NAV] = LAYOUT_split_3x5_2(
+    PHONE,     KC_HOME,   KC_UP,     CW_TOGG,   KC_PGUP,   /*|*/ KC_MINUS,  KC_7,      KC_8,      KC_9,    XXXXXXX,
+    EMAIL,     KC_END,    S(KC_TAB), KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,    KC_COMMA,
+    KC_RSFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,    XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
-  [FN_MS] = LAYOUT_left_3x5_2_right_3x4_2(
-    XXXXXXX,   KC_F9,     KC_F8 ,    KC_F7,     KC_F12,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-    XXXXXXX,   KC_F3,     KC_F2,     KC_F1,     KC_F10,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-    XXXXXXX,   KC_F6,     KC_F5,     KC_F4,     KC_F11,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+  [FN_MS] = LAYOUT_split_3x5_2(
+    XXXXXXX,   KC_F9,     KC_F8 ,    KC_F7,     KC_F12,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,
+    XXXXXXX,   KC_F3,     KC_F2,     KC_F1,     KC_F10,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,
+    XXXXXXX,   KC_F6,     KC_F5,     KC_F4,     KC_F11,    /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
-  [RESET] = LAYOUT_left_3x5_2_right_3x4_2(
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT,
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
-    QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+  [RESET] = LAYOUT_split_3x5_2(
+    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   QK_BOOT, XXXXXXX,
+    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   TO(BASE),  /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,
+    QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   /*|*/ XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
 };
@@ -175,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
-    TD_SINGLE_TAP,  // ignore
+    TD_SINGLE_TAP,  // like LSFT(KC_ENTER)
     TD_DOUBLE_TAP,  // like tap_code(KC_ENTER)
     TD_SINGLE_HOLD, // like MO(SYM)
 } td_state_t;
@@ -214,7 +214,7 @@ void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
         case TD_SINGLE_TAP:
-            // No single-tap action
+            SEND_STRING(SS_LSFT("\n"));
             break;
         case TD_DOUBLE_TAP:
             tap_code(KC_ENTER);
