@@ -69,7 +69,6 @@ enum combos{
     mcomma_SCLN,    // KC_SCLN; shifted: `:`
     fj_RESET_LAYER,
     ui_CTRL_J,      // next item in vim/Copilot completion drop-down
-    we_CTRL_S,      // vim Save
     er_CMD_F,       // browser Find
     xc_CTRL_X,      // vim Close buffer
     cv_CMD_C,       // Copy
@@ -85,6 +84,10 @@ enum combos{
     dg_L_CTL_OPT,      hk_R_CTL_OPT,
     sdf_L_CMD_CTL_OPT, jkl_R_CMD_CTL_OPT,
 
+    // one Cmd-Shift combo on left hand only
+    we_L_CMD_SHFT,
+
+
 };
 
 const uint16_t PROGMEM io_combo[] = {KC_I, KC_O, COMBO_END};
@@ -92,7 +95,6 @@ const uint16_t PROGMEM commadot_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM mcomma_combo[] = {KC_M, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM fj_combo[] = {KC_F, KC_J, COMBO_END};
 const uint16_t PROGMEM ui_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM er_combo[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
@@ -113,6 +115,7 @@ const uint16_t PROGMEM dg_combo[] = {KC_D, KC_G, COMBO_END};
 const uint16_t PROGMEM hk_combo[] = {KC_H, KC_K, COMBO_END};
 const uint16_t PROGMEM sdf_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM jkl_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};
 
 combo_t key_combos[] = {
     [io_P]          = COMBO(io_combo, KC_P),
@@ -120,7 +123,6 @@ combo_t key_combos[] = {
     [mcomma_SCLN]   = COMBO(mcomma_combo, KC_SCLN),
     [fj_RESET_LAYER] = COMBO(fj_combo, TO(RESET)),
     [ui_CTRL_J]     = COMBO(ui_combo, LCTL(KC_J)),
-    [we_CTRL_S]     = COMBO(we_combo, LCTL(KC_S)),
     [er_CMD_F]      = COMBO(er_combo, LCMD(KC_F)),
     [xc_CTRL_X]     = COMBO(xc_combo, LCTL(KC_X)),
     [cv_CMD_C]      = COMBO(cv_combo, LCMD(KC_C)),
@@ -141,6 +143,7 @@ combo_t key_combos[] = {
     [hk_R_CTL_OPT]  = COMBO(hk_combo, RCTL(KC_ROPT)),
     [sdf_L_CMD_CTL_OPT] = COMBO(sdf_combo, LCMD(LCTL(KC_LOPT))),
     [jkl_R_CMD_CTL_OPT] = COMBO(jkl_combo, RCMD(RCTL(KC_ROPT))),
+    [we_L_CMD_SHFT] = COMBO(we_combo, LCMD(KC_LSFT)),
 };
 
 /*layer_state_t layer_state_set_user(layer_state_t state) {*/
