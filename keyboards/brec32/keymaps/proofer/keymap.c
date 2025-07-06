@@ -18,12 +18,12 @@ enum custom_keycodes {
 #define KC_MB1 KC_MS_BTN1
 
 // Shift-Space -> Backspace
-const key_override_t backspace_key_override =
-    ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_SPACE, KC_BSPC, ~0, MOD_MASK_CAG);
-const key_override_t *key_overrides[] = {
-	&backspace_key_override
-};
-#define SPC_BSPC KC_SPACE
+// const key_override_t backspace_key_override =
+//     ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_SPACE, KC_BSPC, ~0, MOD_MASK_CAG);
+// const key_override_t *key_overrides[] = {
+// 	&backspace_key_override
+// };
+// #define SPC_BSPC KC_SPACE
 
 enum tap_dance_keys {
     // rationale: was accidentally tapping the LT(SYM, KC_ENTER) thumb key
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,    XXXXXXX,
     KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,    KC_ESC,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,  XXXXXXX,
-                       KC_LSFT,   TD(ENTER_SYM),           /*|*/     MO(NUM_NAV),   SPC_BSPC
+                       KC_LSFT,   TD(ENTER_SYM),           /*|*/     MO(NUM_NAV),   KC_SPACE  //SPC_BSPC
   ),
   [SYM] =  LAYOUT_split_3x5_2(  /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   XXXXXXX,
