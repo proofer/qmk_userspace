@@ -18,34 +18,36 @@ enum custom_keycodes {
 #define KC_MB1 KC_MS_BTN1
 
 // Shift-Space -> Backspace
+// Requires `#KEY_OVERRIDE_ENABLE = yes` in rules.mk, which must be removed if no overrides here.
 // const key_override_t backspace_key_override =
 //     ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_SPACE, KC_BSPC, ~0, MOD_MASK_CAG);
 // const key_override_t *key_overrides[] = {
 // 	&backspace_key_override
 // };
 // #define SPC_BSPC KC_SPACE
+// Problem with this override: unintended deletion of just-typed shifted character
 
 enum tap_dance_keys {
-    // rationale: was accidentally tapping the LT(SYM, KC_ENTER) thumb key
+    // rationale: was accidentally tapping the LT(SYM, KC_ENTER) thumb key, unintenionally posting/sending
     ENTER_SYM,      // tap: same as LSFT(KC_ENTER); double-tap: KC_ENTER; hold: same as MO(SYM)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x5_2(
     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      /*|*/ KC_Y,      KC_U,     KC_I,       KC_O,    XXXXXXX,
-    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,    KC_ESC,
+    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /*|*/ KC_H,      KC_J,     KC_K,       KC_L,    KC_BSPC,
     KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      /*|*/ KC_N,      KC_M,     KC_COMMA,   KC_DOT,  XXXXXXX,
                        KC_LSFT,   TD(ENTER_SYM),           /*|*/     MO(NUM_NAV),   KC_SPACE  //SPC_BSPC
   ),
   [SYM] =  LAYOUT_split_3x5_2(  /**** could require Shift as in QUERTY: <>?_+{}|~ ****/
     KC_GRAVE,  KC_LABK,   KC_RABK,   KC_UNDS,   KC_QUES,   /*|*/ KC_AMPR,   KC_LPRN,   KC_LCBR,   KC_LBRC,   XXXXXXX,
-    KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,   XXXXXXX,
+    KC_EXLM,   KC_MINUS,  KC_PLUS,   KC_EQUAL,  KC_HASH,   /*|*/ KC_PIPE,   KC_RPRN,   KC_RCBR,   KC_RBRC,   _______,
     KC_CIRC,   KC_AT,     KC_ASTR,   KC_BSLS,   KC_DLR,    /*|*/ KC_PERC,   KC_TILD,   KC_SLASH,  MO(FN_MS), XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
   [NUM_NAV] = LAYOUT_split_3x5_2(
     PHONE,     KC_HOME,   KC_UP,     KC_CAPS,   KC_PGUP,   /*|*/ KC_MINUS,  KC_7,      KC_8,      KC_9,    XXXXXXX,
-    EMAIL,     KC_END,    S(KC_TAB), KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,    KC_BSPC,
+    EMAIL,     KC_END,    S(KC_TAB), KC_TAB,    KC_DEL,    /*|*/ KC_0,      KC_1,      KC_2,      KC_3,    _______,
     KC_RSFT,   KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN,   /*|*/ KC_DOT,    KC_4,      KC_5,      KC_6,    XXXXXXX,
                        _______,          _______,          /*|*/        _______,          _______
   ),
@@ -68,7 +70,7 @@ enum combos{
     commadot_QUOT,  // KC_QUOT; shifted: `"`
     mcomma_SCLN,    // KC_SCLN; shifted: `:`
     fj_RESET_LAYER,
-    ui_CTRL_J,      // next item in vim/Copilot completion drop-down
+    ui_ESC,         // KC_ESC
     er_CMD_F,       // browser Find
     xc_CTRL_X,      // vim Close buffer
     cv_CMD_C,       // Copy
@@ -122,7 +124,7 @@ combo_t key_combos[] = {
     [commadot_QUOT] = COMBO(commadot_combo, KC_QUOT),
     [mcomma_SCLN]   = COMBO(mcomma_combo, KC_SCLN),
     [fj_RESET_LAYER] = COMBO(fj_combo, TO(RESET)),
-    [ui_CTRL_J]     = COMBO(ui_combo, LCTL(KC_J)),
+    [ui_ESC]        = COMBO(ui_combo, KC_ESC),
     [er_CMD_F]      = COMBO(er_combo, LCMD(KC_F)),
     [xc_CTRL_X]     = COMBO(xc_combo, LCTL(KC_X)),
     [cv_CMD_C]      = COMBO(cv_combo, LCMD(KC_C)),
